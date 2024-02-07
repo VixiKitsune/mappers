@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!-- TODO: Mapping: Opponent Nicknames, Sounds, Tiles, Text Prompt. Translate: Types, Statuses, Locations, Music tracks, Property names. Event Flags need testing -->
 <mapper id="7ade791c-f841-404b-be15-873f88ade48a" name="Pokemon Red, Green, Blue and Yellow (JP)" platform="GB"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://schemas.gamehook.io/mapper https://schemas.gamehook.io/mapper.xsd"
@@ -231,8 +231,8 @@
             <property name="pokedex_seen"      type="bitArray" address="0xD28E" length="19" />    
             <property name="pokedex_caught"    type="bitArray" address="0xD27B" length="19" />
             <property name="starter_pokemon"   type="int"      address="0xD696" reference="species" description="The starter Pokemon received from Oak." />
-            <!-- <property name="joypad_simulation" type="bool"     address="0xCD38" description="Setting this to true will disable collision for your character." />
-            <property name="joypad_ignore"     type="int"      address="0xCD6B" description="Setting this to true will disable collision for your character." /> -->
+            <property name="joypad_simulation" type="bool"     address="0xCD38" description="Setting this to true will disable collision for your character." /> <!--Same as English-->
+            <property name="joypad_ignore"     type="int"      address="0xCD66" description="Setting this to true will disable input for your character." />
         </player>
         <bag>
             <property name="money" type="binaryCodedDecimal" address="0xD2CB" length="3" />
@@ -312,10 +312,10 @@
             <property name="trash_can_puzzle" type="bool" address="0xD6F2" bits="0" description="Set value to 3 to solve the puzzle. Freezing this property breaks the gym trainers." />
         </events>
         <flags>
-            <property name="count_play_time" type="bool" address="0xD732" bits="0" description="play time being counted" />
-            <property name="debug_mode"      type="bool" address="0xD732" bits="1" description="See mapper" />
+            <property name="count_play_time" type="bool" address="0xD6B1" bits="0" description="play time being counted" />
+            <property name="debug_mode"      type="bool" address="0xD6B1" bits="1" description="See mapper" />
                 <!-- "Only set by the debug build. If true:
-                    * skips most of Prof. Oak's speech, and uses NINTEN as the player's name and SONY as the rival's name
+                    * skips most of Prof. Oak's speech, and uses やまぐち(Red/Green) ゲーフリ(Blue) ゲーフリ1(Yellow) as the player's name and いしはら(Red/Green) クリチャ (Blue/Yellow) as the rival's name
                     * does not have the player start in floor two of the player's house (instead sending them to [wLastMap])
                     * allows wild battles to be avoided by holding down B
                     * allows trainers to be avoided by holding down B
@@ -323,10 +323,10 @@
                     * skips the NPC who blocks Route 3 before beating Brock by holding down B
                     * skips Cerulean City rival battle by holding down B
                     * skips Pokémon Tower rival battle by holding down B" -->
-            <property name="fly_or_dungeon"          type="bool" address="0xD731" bits="2" description="the target warp is a fly warp (bit 3 set or blacked out) or a dungeon warp (bit 4 set)" />
-            <property name="fly_warp"                type="bool" address="0xD731" bits="3" /> 
-            <property name="dungeon_warp"            type="bool" address="0xD731" bits="4" /> 
-            <property name="destination_is_blackout" type="bool" address="0xD731" bits="6" />
+            <property name="fly_or_dungeon"          type="bool" address="0xD6B1" bits="2" description="the target warp is a fly warp (bit 3 set or blacked out) or a dungeon warp (bit 4 set)" />
+            <property name="fly_warp"                type="bool" address="0xD6B1" bits="3" /> 
+            <property name="dungeon_warp"            type="bool" address="0xD6B1" bits="4" /> <!--Boulder holes trigger this-->
+            <property name="destination_is_blackout" type="bool" address="0xD6B1" bits="6" /> <!--Any action which returns the player to the last Pokemon center-->
             <property name="beat_champion" type="bool" bits="1" address="0xD7E6" />
         </flags>
                 <event_flags> <!-- TODO: test to ensure these work (applied a -81 offset to English Red/Blue mapper values and needs testing) -->
@@ -843,7 +843,7 @@
             <property name="type"    type="int" address="0xD037" reference="battle_types" />
             <property name="outcome" type="string" />
             <player>
-                <property name="party_position" type="int" address="0xCC2F" />
+                <property name="party_position" type="int" address="0xCC2F" /> <!--Same as English-->
                 <property name="team_count" type="int" address="0xD123" />
                 <active_pokemon>
                     <property name="nickname"   type="string" address="0xCFF0" length="6" />
@@ -877,9 +877,9 @@
                         <property name="evasion"  type="int" address="0xCD1F" reference="stage_modifiers" /> <!--same memory location across all language Gen1 games-->
                     </modifiers>
                     <volatile_status_conditions>
-                        <property name="confusion"  type="bool" address="0xD03F" bits="6" />     
-                        <property name="toxic"      type="bool" address="0xD064" bits="0" />
-                        <property name="leech_seed" type="bool" address="0xD063" bits="7" />
+                        <property name="confusion"  type="bool" address="0xD03F" bits="7" />     
+                        <property name="toxic"      type="bool" address="0xD041" bits="0" />
+                        <property name="leech_seed" type="bool" address="0xD040" bits="7" />
                     </volatile_status_conditions>
                     <effects>
                         <property name="bide"            type="bool" address="0xD03F" bits="0" />
@@ -895,23 +895,23 @@
                         <property name="substitute"      type="bool" address="0xD040" bits="4" />
                         <property name="recharge"        type="bool" address="0xD040" bits="5" />
                         <property name="rage"            type="bool" address="0xD040" bits="6" />
-                        <property name="lightscreen"     type="bool" address="0xD064" bits="1" />
-                        <property name="reflect"         type="bool" address="0xD064" bits="2" />
-                        <property name="transformed"     type="bool" address="0xD064" bits="3" />
+                        <property name="lightscreen"     type="bool" address="0xD041" bits="1" />
+                        <property name="reflect"         type="bool" address="0xD041" bits="2" />
+                        <property name="transformed"     type="bool" address="0xD041" bits="3" />
                     </effects>
                     <counters>
-                        <property name="multi_hit" type="int" address="0xD06A" />
+                        <property name="multi_hit" type="int" address="0xD047" />
                         <property name="confusion" type="int" address="0xD048" />
-                        <property name="toxic"     type="int" address="0xD06B" />
-                        <property name="disable"   type="int" address="0xD06D" length="2" />
+                        <property name="toxic"     type="int" address="0xD049" />
+                        <property name="disable"   type="int" address="0xD04A" length="2" />
                     </counters>
                     <last_move>
-                        <property name="move"     type="int" address="0xCFD2" reference="moves" />
-                        <property name="effect"   type="int" address="0xCFD3" />
-                        <property name="power"    type="int" address="0xCFD4" />
-                        <property name="type"     type="int" address="0xCFD5" reference="pokemon_types" />
-                        <property name="accuracy" type="int" address="0xCFD6" after-read-value-expression="Math.round(((x / 255) * 100), 2)" />
-                        <property name="pp_max"   type="int" address="0xCFD7" />
+                        <property name="move"     type="int" address="0xCFB9" reference="moves" />
+                        <property name="effect"   type="int" address="0xCFBA" />
+                        <property name="power"    type="int" address="0xCFBB" />
+                        <property name="type"     type="int" address="0xCFBC" reference="pokemon_types" />
+                        <property name="accuracy" type="int" address="0xCFBD" after-read-value-expression="Math.round(((x / 255) * 100), 2)" />
+                        <property name="pp_max"   type="int" address="0xCFBE" />
                     </last_move>
                 </active_pokemon>
                 <team>
@@ -924,12 +924,12 @@
                 </team>
             </player>
             <opponent>
-                <property name="name"       type="string" address="0xD04A" length="11" />
-                <property name="trainer"    type="int" address="0xD031" reference="trainer_classes" />
-                <property name="id"         type="int" address="0xD05D" />
-                <property name="gym_leader" type="int" address="0xD05C" />
-                <property name="team_count" type="int" address="0xD89C" />
-                <property name="party_position" type="int" address="0xCFE8" />
+                <property name="name"       type="string" address="0xD029" length="11" />
+                <property name="trainer"    type="int" address="0xD018" reference="trainer_classes" />
+                <property name="id"         type="int" address="0xD03A" />
+                <property name="gym_leader" type="int" address="0xD039" />
+                <property name="team_count" type="int" address="0xD81B" />
+                <property name="party_position" type="int" address="0xCFCF" />
                 <active_pokemon>
                     <property name="species"          type="int" address="0xCFCC" reference="species" />
                     <property name="dex_number"       type="int" address="0xCFCC" reference="dex_numbers" />
@@ -952,79 +952,79 @@
                         <property name="special" type="int" address="0xCFE4" length="2" />
                     </stats>
                     <modifiers>
-                        <property name="attack"   type="int" address="0xCD2E" reference="stage_modifiers" />
-                        <property name="defense"  type="int" address="0xCD2F" reference="stage_modifiers" />
-                        <property name="speed"    type="int" address="0xCD30" reference="stage_modifiers" />
-                        <property name="special"  type="int" address="0xCD31" reference="stage_modifiers" />
-                        <property name="accuracy" type="int" address="0xCD32" reference="stage_modifiers" />
-                        <property name="evasion"  type="int" address="0xCD33" reference="stage_modifiers" />
+                        <property name="attack"   type="int" address="0xCD2D" reference="stage_modifiers" />
+                        <property name="defense"  type="int" address="0xCD2E" reference="stage_modifiers" />
+                        <property name="speed"    type="int" address="0xCD2F" reference="stage_modifiers" />
+                        <property name="special"  type="int" address="0xCD30" reference="stage_modifiers" />
+                        <property name="accuracy" type="int" address="0xCD31" reference="stage_modifiers" />
+                        <property name="evasion"  type="int" address="0xCD32" reference="stage_modifiers" />
                     </modifiers>
                     <ivs>
-                        <property name="attack"  type="int" address="0xCFF1" bits="4-7" />
-                        <property name="defense" type="int" address="0xCFF1" bits="0-3" />
-                        <property name="speed"   type="int" address="0xCFF2" bits="4-7" />
-                        <property name="special" type="int" address="0xCFF2" bits="0-3" />
+                        <property name="attack"  type="int" address="0xCFD8" bits="4-7" />
+                        <property name="defense" type="int" address="0xCFD8" bits="0-3" />
+                        <property name="speed"   type="int" address="0xCFD9" bits="4-7" />
+                        <property name="special" type="int" address="0xCFD9" bits="0-3" />
                     </ivs>
                     <base_stats>
-                        <property name="hp"      type="int" address="0xD002" after-read-value-expression="x % 16" />
-                        <property name="attack"  type="int" address="0xD003" after-read-value-expression="x % 16" />
-                        <property name="defense" type="int" address="0xD004" after-read-value-expression="x % 16" />
-                        <property name="speed"   type="int" address="0xD005" after-read-value-expression="x % 16" />
-                        <property name="special" type="int" address="0xD006" after-read-value-expression="x % 16" />
-                        <!-- <property name="exp"     type="int" address="0xD008" after-read-value-expression="x % 16" /> -->
+                        <property name="hp"      type="int" address="0xCFE9" after-read-value-expression="x % 16" />
+                        <property name="attack"  type="int" address="0xCFEA" after-read-value-expression="x % 16" />
+                        <property name="defense" type="int" address="0xCFEB" after-read-value-expression="x % 16" />
+                        <property name="speed"   type="int" address="0xCFEC" after-read-value-expression="x % 16" />
+                        <property name="special" type="int" address="0xCFED" after-read-value-expression="x % 16" />
+                        <property name="exp"     type="int" address="0xCFEF" after-read-value-expression="x % 16" />
                     </base_stats>
                     <effects>
-                        <property name="bide"            type="bool" address="0xD040" bits="0" />
-                        <property name="thrash"          type="bool" address="0xD040" bits="1" />
-                        <property name="multi_hit"       type="bool" address="0xD040" bits="2" />
-                        <property name="flinch"          type="bool" address="0xD040" bits="3" />
-                        <property name="charging"        type="bool" address="0xD040" bits="4" />
-                        <property name="multi_turn"      type="bool" address="0xD040" bits="5" />
-                        <property name="invulnerable"    type="bool" address="0xD040" bits="6" />
-                        <property name="confusion"       type="bool" address="0xD040" bits="6" />     
-                        <property name="bypass_accuracy" type="bool" address="0xD041" bits="0" />
-                        <property name="mist"            type="bool" address="0xD041" bits="1" />
-                        <property name="focus_energy"    type="bool" address="0xD041" bits="2" />
-                        <property name="substitute"      type="bool" address="0xD041" bits="4" />
-                        <property name="recharge"        type="bool" address="0xD041" bits="5" />
-                        <property name="rage"            type="bool" address="0xD041" bits="6" />
-                        <property name="leech_seed"      type="bool" address="0xD041" bits="7" />
-                        <property name="toxic"           type="bool" address="0xD042" bits="0" />
-                        <property name="lightscreen"     type="bool" address="0xD042" bits="1" />
-                        <property name="reflect"         type="bool" address="0xD042" bits="2" />
-                        <property name="transformed"     type="bool" address="0xD042" bits="3" />
+                        <property name="bide"            type="bool" address="0xD044" bits="0" />
+                        <property name="thrash"          type="bool" address="0xD044" bits="1" />
+                        <property name="multi_hit"       type="bool" address="0xD044" bits="2" />
+                        <property name="flinch"          type="bool" address="0xD044" bits="3" />
+                        <property name="charging"        type="bool" address="0xD044" bits="4" />
+                        <property name="multi_turn"      type="bool" address="0xD044" bits="5" />
+                        <property name="invulnerable"    type="bool" address="0xD044" bits="6" />
+                        <property name="confusion"       type="bool" address="0xD044" bits="7" />     
+                        <property name="bypass_accuracy" type="bool" address="0xD045" bits="0" />
+                        <property name="mist"            type="bool" address="0xD045" bits="1" />
+                        <property name="focus_energy"    type="bool" address="0xD045" bits="2" />
+                        <property name="substitute"      type="bool" address="0xD045" bits="4" />
+                        <property name="recharge"        type="bool" address="0xD045" bits="5" />
+                        <property name="rage"            type="bool" address="0xD045" bits="6" />
+                        <property name="leech_seed"      type="bool" address="0xD045" bits="7" />
+                        <property name="toxic"           type="bool" address="0xD046" bits="0" />
+                        <property name="lightscreen"     type="bool" address="0xD046" bits="1" />
+                        <property name="reflect"         type="bool" address="0xD046" bits="2" />
+                        <property name="transformed"     type="bool" address="0xD046" bits="3" />
                     </effects>
                     <counters>
-                        <property name="multi_hit" type="int" address="0xD06F" />
-                        <property name="confusion" type="int" address="0xD070" />
-                        <property name="toxic"     type="int" address="0xD071" />
-                        <property name="disable"   type="int" address="0xD072" />
+                        <property name="multi_hit" type="int" address="0xD04C" />
+                        <property name="confusion" type="int" address="0xD04D" />
+                        <property name="toxic"     type="int" address="0xD04E" />
+                        <property name="disable"   type="int" address="0xD04F" />
                     </counters>
                     <last_move>
-                        <property name="move"     type="int" address="0xCFCC" reference="moves" />
-                        <property name="effect"   type="int" address="0xCFCD" />
-                        <property name="power"    type="int" address="0xCFCE" />
-                        <property name="type"     type="int" address="0xCFCF" reference="pokemon_types" />
-                        <property name="accuracy" type="int" address="0xCFD0" after-read-value-expression="Math.round(((x / 255) * 100), 2)" />
-                        <property name="pp_max"   type="int" address="0xCFD1" />
+                        <property name="move"     type="int" address="0xCFB3" reference="moves" />
+                        <property name="effect"   type="int" address="0xCFB4" />
+                        <property name="power"    type="int" address="0xCFB5" />
+                        <property name="type"     type="int" address="0xCFB6" reference="pokemon_types" />
+                        <property name="accuracy" type="int" address="0xCFB7" after-read-value-expression="Math.round(((x / 255) * 100), 2)" />
+                        <property name="pp_max"   type="int" address="0xCFB8" />
                     </last_move>
                 </active_pokemon>
                 <team>
-                    <class name="0" type="party_pokemon" var:address="0xD9EE" var:nicknameAddress="0xD8A4"/>
-                    <class name="1" type="party_pokemon" var:address="0xD9F9" var:nicknameAddress="0xD8D0"/>
-                    <class name="2" type="party_pokemon" var:address="0xDA04" var:nicknameAddress="0xD8FC"/>
-                    <class name="3" type="party_pokemon" var:address="0xDA0F" var:nicknameAddress="0xD928"/>
-                    <class name="4" type="party_pokemon" var:address="0xDA1A" var:nicknameAddress="0xD954"/>
-                    <class name="5" type="party_pokemon" var:address="0xDA25" var:nicknameAddress="0xD980"/>
+                    <class name="0" type="party_pokemon" var:address="0xD823" var:nicknameAddress="0xD9EE"/>
+                    <class name="1" type="party_pokemon" var:address="0xD84F" var:nicknameAddress="0xD9F9"/>
+                    <class name="2" type="party_pokemon" var:address="0xD87B" var:nicknameAddress="0xDA04"/>
+                    <class name="3" type="party_pokemon" var:address="0xD9A7" var:nicknameAddress="0xDA0F"/>
+                    <class name="4" type="party_pokemon" var:address="0xD9D3" var:nicknameAddress="0xDA1A"/>
+                    <class name="5" type="party_pokemon" var:address="0xD9FF" var:nicknameAddress="0xDA25"/>
                 </team>
             </opponent>
             <other>
-                <property name="battle_start"       type="int" address="0xCCF5" description="When 0 battle is starting, when >=1 battle has begun" />
-                <property name="battle_result"      type="int" address="0xCCF6" description="This is set to 0 at the start of battle and 1 when the opponent has lost" />
-                <property name="outcome_flags"      type="int" address="0xcf0b" description="wBattleResult: win=0 lose=1 draw=2 (flee)" />
-                <property name="low_health_alarm"   type="int" address="0xCCF6" reference="low_health_alarm" description="This is set to 0 at the start of battle and 1 when the opponent has lost" />
-                <property name="animation_turn"     type="int" address="0xFFF4" reference="battle_turn" description="This dictates which direction battle animations are played. (Enemy attacking player, or player attacking enemy.)" />
-                <property name="attack_damage"      type="int" address="0xD0D8" description="Amount of damage attack is about to do. Max possible damage may appear one frame before actual damage." />
+                <property name="battle_start"       type="int" address="0xCCF5" description="When 0 battle is starting, when >=1 battle has begun" /> <!--Same as English-->
+                <property name="battle_result"      type="int" address="0xCCF6" description="This is set to 0 at the start of battle and 1 when the opponent has lost" /> <!--Same as English-->
+                <property name="outcome_flags"      type="int" address="0xCF06" description="wBattleResult: win=0 lose=1 draw=2 (flee)" />
+                <property name="low_health_alarm"   type="int" address="0xCCF6" reference="low_health_alarm" description="This is set to 0 at the start of battle and 1 when the opponent has lost" /> <!--Same as English-->
+                <property name="animation_turn"     type="int" address="0xFFF3" reference="battle_turn" description="This dictates which direction battle animations are played. (Enemy attacking player, or player attacking enemy.)" /> <!--Same across all gen 1 games-->
+                <property name="attack_damage"      type="int" address="0xD0B5" description="Amount of damage attack is about to do. Max possible damage may appear one frame before actual damage." />
             </other>
         </battle>
 
@@ -1047,7 +1047,7 @@
 
         <rival>
             <property name="name" type="string" address="0xD2CE" length="6" description="The rival's name." />
-            <property name="team" type="int"    address="0xD715" reference="final_team" />
+            <property name="team" type="int"    address="0xD694" reference="final_team" />
         </rival>
 
         <audio>
@@ -1084,91 +1084,101 @@
 
         <pc>
             <pokemon_storage>
-                <property name="current_box_count" type="int" address="0xDA80" />
+                <property name="current_box_count" type="int" address="0xD9B2" />
                 <current_box>
-                    <class name="0"  type="pc_pokemon" var:address="0xDA96" var:nicknameAddress="0xDE06"/>
-                    <class name="1"  type="pc_pokemon" var:address="0xDAB7" var:nicknameAddress="0xDE11"/>
-                    <class name="2"  type="pc_pokemon" var:address="0xDAD8" var:nicknameAddress="0xDE1C"/>
-                    <class name="3"  type="pc_pokemon" var:address="0xDAF9" var:nicknameAddress="0xDE27"/>
-                    <class name="4"  type="pc_pokemon" var:address="0xDB1A" var:nicknameAddress="0xDE32"/>
-                    <class name="5"  type="pc_pokemon" var:address="0xDB3B" var:nicknameAddress="0xDE3D"/>
-                    <class name="6"  type="pc_pokemon" var:address="0xDB5C" var:nicknameAddress="0xDE48"/>
-                    <class name="7"  type="pc_pokemon" var:address="0xDB7D" var:nicknameAddress="0xDE53"/>
-                    <class name="8"  type="pc_pokemon" var:address="0xDB9E" var:nicknameAddress="0xDE5E"/>
-                    <class name="9"  type="pc_pokemon" var:address="0xDBBF" var:nicknameAddress="0xDE69"/>
-                    <class name="10" type="pc_pokemon" var:address="0xDBE0" var:nicknameAddress="0xDE74"/>
-                    <class name="11" type="pc_pokemon" var:address="0xDC01" var:nicknameAddress="0xDE7F"/>
-                    <class name="12" type="pc_pokemon" var:address="0xDC22" var:nicknameAddress="0xDE8A"/>
-                    <class name="13" type="pc_pokemon" var:address="0xDC43" var:nicknameAddress="0xDE95"/>
-                    <class name="14" type="pc_pokemon" var:address="0xDC64" var:nicknameAddress="0xDEA0"/>
-                    <class name="15" type="pc_pokemon" var:address="0xDC85" var:nicknameAddress="0xDEAB"/>
-                    <class name="16" type="pc_pokemon" var:address="0xDCA6" var:nicknameAddress="0xDEB6"/>
-                    <class name="17" type="pc_pokemon" var:address="0xDCC7" var:nicknameAddress="0xDEC1"/>
-                    <class name="18" type="pc_pokemon" var:address="0xDCE8" var:nicknameAddress="0xDECC"/>
-                    <class name="19" type="pc_pokemon" var:address="0xDD09" var:nicknameAddress="0xDED7"/>
+                    <class name="0"  type="pc_pokemon" var:address="0xD9D2" var:nicknameAddress="0xDE64"/>
+                    <class name="1"  type="pc_pokemon" var:address="0xD9F3" var:nicknameAddress="0xDE6A"/>
+                    <class name="2"  type="pc_pokemon" var:address="0xDA14" var:nicknameAddress="0xDE70"/>
+                    <class name="3"  type="pc_pokemon" var:address="0xDA35" var:nicknameAddress="0xDE76"/>
+                    <class name="4"  type="pc_pokemon" var:address="0xDA56" var:nicknameAddress="0xDE7C"/>
+                    <class name="5"  type="pc_pokemon" var:address="0xDA77" var:nicknameAddress="0xDE82"/>
+                    <class name="6"  type="pc_pokemon" var:address="0xDA98" var:nicknameAddress="0xDE88"/>
+                    <class name="7"  type="pc_pokemon" var:address="0xDAB9" var:nicknameAddress="0xDE8E"/>
+                    <class name="8"  type="pc_pokemon" var:address="0xDADA" var:nicknameAddress="0xDE94"/>
+                    <class name="9"  type="pc_pokemon" var:address="0xDAFB" var:nicknameAddress="0xDE9A"/>
+                    <class name="10" type="pc_pokemon" var:address="0xDB1C" var:nicknameAddress="0xDEA0"/>
+                    <class name="11" type="pc_pokemon" var:address="0xDB3D" var:nicknameAddress="0xDEA6"/>
+                    <class name="12" type="pc_pokemon" var:address="0xDB5E" var:nicknameAddress="0xDEAC"/>
+                    <class name="13" type="pc_pokemon" var:address="0xDB7F" var:nicknameAddress="0xDEB2"/>
+                    <class name="14" type="pc_pokemon" var:address="0xDBA0" var:nicknameAddress="0xDEB8"/>
+                    <class name="15" type="pc_pokemon" var:address="0xDBC1" var:nicknameAddress="0xDEBE"/>
+                    <class name="16" type="pc_pokemon" var:address="0xDBE2" var:nicknameAddress="0xDEC4"/>
+                    <class name="17" type="pc_pokemon" var:address="0xDC03" var:nicknameAddress="0xDECA"/>
+                    <class name="18" type="pc_pokemon" var:address="0xDC24" var:nicknameAddress="0xDED0"/>
+                    <class name="19" type="pc_pokemon" var:address="0xDC45" var:nicknameAddress="0xDED6"/>
+                    <class name="20" type="pc_pokemon" var:address="0xDC66" var:nicknameAddress="0xDEDC"/>
+                    <class name="21" type="pc_pokemon" var:address="0xDC87" var:nicknameAddress="0xDEE2"/>
+                    <class name="22" type="pc_pokemon" var:address="0xDCA8" var:nicknameAddress="0xDEE8"/>
+                    <class name="23" type="pc_pokemon" var:address="0xDCC9" var:nicknameAddress="0xDEEE"/>
+                    <class name="24" type="pc_pokemon" var:address="0xDCEA" var:nicknameAddress="0xDEF4"/>
+                    <class name="25" type="pc_pokemon" var:address="0xDD0B" var:nicknameAddress="0xDEFA"/>
+                    <class name="26" type="pc_pokemon" var:address="0xDD2C" var:nicknameAddress="0xDF00"/>
+                    <class name="27" type="pc_pokemon" var:address="0xDD4D" var:nicknameAddress="0xDF06"/>
+                    <class name="28" type="pc_pokemon" var:address="0xDD6E" var:nicknameAddress="0xDF0C"/>
+                    <class name="29" type="pc_pokemon" var:address="0xDD8F" var:nicknameAddress="0xDF12"/>
                 </current_box>
             </pokemon_storage>
             <item_storage>
-                <property name="item_count" type="int" address="0xD53A" />
+                <property name="item_count" type="int" address="0xD4B9" />
                 <items>
-                    <class name="0"  type="player_item" var:address="0xD53B" />
-                    <class name="1"  type="player_item" var:address="0xD53D" />    
-                    <class name="2"  type="player_item" var:address="0xD53F" />    
-                    <class name="3"  type="player_item" var:address="0xD541" />    
-                    <class name="4"  type="player_item" var:address="0xD543" />    
-                    <class name="5"  type="player_item" var:address="0xD545" />    
-                    <class name="6"  type="player_item" var:address="0xD547" />    
-                    <class name="7"  type="player_item" var:address="0xD549" />    
-                    <class name="8"  type="player_item" var:address="0xD54B" />    
-                    <class name="9"  type="player_item" var:address="0xD54D" />    
-                    <class name="10" type="player_item" var:address="0xD54F" />    
-                    <class name="11" type="player_item" var:address="0xD551" />    
-                    <class name="12" type="player_item" var:address="0xD553" />    
-                    <class name="13" type="player_item" var:address="0xD555" />    
-                    <class name="14" type="player_item" var:address="0xD557" />    
-                    <class name="15" type="player_item" var:address="0xD559" />    
-                    <class name="16" type="player_item" var:address="0xD55B" />    
-                    <class name="17" type="player_item" var:address="0xD55D" />    
-                    <class name="18" type="player_item" var:address="0xD55F" />    
-                    <class name="19" type="player_item" var:address="0xD561" />    
-                    <class name="20" type="player_item" var:address="0xD563" />    
-                    <class name="21" type="player_item" var:address="0xD565" />    
-                    <class name="22" type="player_item" var:address="0xD567" />    
-                    <class name="23" type="player_item" var:address="0xD569" />    
-                    <class name="24" type="player_item" var:address="0xD56B" />    
-                    <class name="25" type="player_item" var:address="0xD56D" />    
-                    <class name="26" type="player_item" var:address="0xD56F" />    
-                    <class name="27" type="player_item" var:address="0xD571" />    
-                    <class name="28" type="player_item" var:address="0xD573" />    
-                    <class name="29" type="player_item" var:address="0xD575" />    
-                    <class name="30" type="player_item" var:address="0xD577" />    
-                    <class name="31" type="player_item" var:address="0xD579" />    
-                    <class name="32" type="player_item" var:address="0xD57B" />    
-                    <class name="33" type="player_item" var:address="0xD57D" />    
-                    <class name="34" type="player_item" var:address="0xD57F" />    
-                    <class name="35" type="player_item" var:address="0xD581" />    
-                    <class name="36" type="player_item" var:address="0xD583" />    
-                    <class name="37" type="player_item" var:address="0xD585" />    
-                    <class name="38" type="player_item" var:address="0xD587" />    
-                    <class name="39" type="player_item" var:address="0xD589" />    
-                    <class name="40" type="player_item" var:address="0xD58B" />    
-                    <class name="41" type="player_item" var:address="0xD58D" />    
-                    <class name="42" type="player_item" var:address="0xD58F" />    
-                    <class name="43" type="player_item" var:address="0xD591" />    
-                    <class name="44" type="player_item" var:address="0xD593" />    
-                    <class name="45" type="player_item" var:address="0xD595" />    
-                    <class name="46" type="player_item" var:address="0xD597" />    
-                    <class name="47" type="player_item" var:address="0xD599" />    
-                    <class name="48" type="player_item" var:address="0xD59B" />    
-                    <class name="49" type="player_item" var:address="0xD59D" />    
-                    <class name="50" type="player_item" var:address="0xD59F" />    
+                    <class name="0"  type="player_item" var:address="0xD4BA" />
+                    <class name="1"  type="player_item" var:address="0xD4BC" />    
+                    <class name="2"  type="player_item" var:address="0xD4BE" />    
+                    <class name="3"  type="player_item" var:address="0xD4C0" />    
+                    <class name="4"  type="player_item" var:address="0xD4C2" />    
+                    <class name="5"  type="player_item" var:address="0xD4C4" />    
+                    <class name="6"  type="player_item" var:address="0xD4C6" />    
+                    <class name="7"  type="player_item" var:address="0xD4C8" />    
+                    <class name="8"  type="player_item" var:address="0xD4CA" />    
+                    <class name="9"  type="player_item" var:address="0xD4CC" />    
+                    <class name="10" type="player_item" var:address="0xD4CE" />    
+                    <class name="11" type="player_item" var:address="0xD4D0" />    
+                    <class name="12" type="player_item" var:address="0xD4D2" />    
+                    <class name="13" type="player_item" var:address="0xD4D4" />    
+                    <class name="14" type="player_item" var:address="0xD4D6" />    
+                    <class name="15" type="player_item" var:address="0xD4D8" />    
+                    <class name="16" type="player_item" var:address="0xD4DA" />    
+                    <class name="17" type="player_item" var:address="0xD4DC" />    
+                    <class name="18" type="player_item" var:address="0xD4DE" />    
+                    <class name="19" type="player_item" var:address="0xD4E0" />    
+                    <class name="20" type="player_item" var:address="0xD4E2" />    
+                    <class name="21" type="player_item" var:address="0xD4E4" />    
+                    <class name="22" type="player_item" var:address="0xD4E6" />    
+                    <class name="23" type="player_item" var:address="0xD4E8" />    
+                    <class name="24" type="player_item" var:address="0xD4EA" />    
+                    <class name="25" type="player_item" var:address="0xD4EC" />    
+                    <class name="26" type="player_item" var:address="0xD4EE" />    
+                    <class name="27" type="player_item" var:address="0xD4F0" />    
+                    <class name="28" type="player_item" var:address="0xD4F2" />    
+                    <class name="29" type="player_item" var:address="0xD4F4" />    
+                    <class name="30" type="player_item" var:address="0xD4F6" />    
+                    <class name="31" type="player_item" var:address="0xD4F8" />    
+                    <class name="32" type="player_item" var:address="0xD4FA" />    
+                    <class name="33" type="player_item" var:address="0xD4FC" />    
+                    <class name="34" type="player_item" var:address="0xD4FE" />    
+                    <class name="35" type="player_item" var:address="0xD500" />    
+                    <class name="36" type="player_item" var:address="0xD502" />    
+                    <class name="37" type="player_item" var:address="0xD504" />    
+                    <class name="38" type="player_item" var:address="0xD506" />    
+                    <class name="39" type="player_item" var:address="0xD508" />    
+                    <class name="40" type="player_item" var:address="0xD50A" />    
+                    <class name="41" type="player_item" var:address="0xD50C" />    
+                    <class name="42" type="player_item" var:address="0xD50E" />    
+                    <class name="43" type="player_item" var:address="0xD510" />    
+                    <class name="44" type="player_item" var:address="0xD512" />    
+                    <class name="45" type="player_item" var:address="0xD514" />    
+                    <class name="46" type="player_item" var:address="0xD516" />    
+                    <class name="47" type="player_item" var:address="0xD518" />    
+                    <class name="48" type="player_item" var:address="0xD51A" />    
+                    <class name="49" type="player_item" var:address="0xD51C" />    
+                    <!-- <class name="50" type="player_item" var:address="0xD51E" />    
                     <class name="51" type="player_item" var:address="0xD5A1" />    
                     <class name="52" type="player_item" var:address="0xD5A3" />    
                     <class name="53" type="player_item" var:address="0xD5A5" />    
                     <class name="54" type="player_item" var:address="0xD5A7" />    
                     <class name="55" type="player_item" var:address="0xD5A9" />    
                     <class name="56" type="player_item" var:address="0xD5AB" />    
-                    <class name="57" type="player_item" var:address="0xD5AD" />
+                    <class name="57" type="player_item" var:address="0xD5AD" /> -->
                 </items>
             </item_storage>
         </pc>
@@ -1178,7 +1188,7 @@
                 <property name="prompt" type="string" address="0xC4F2" reference="text_prompt" />
             </text>
             <menu>
-                <property name="current_item" type="int" address="0xCC26" />
+                <property name="current_item" type="int" address="0xCC26" /> <!--Same as english-->
             </menu>
             <column_1>
                 <tiles>
@@ -1251,7 +1261,7 @@
             <entry key="0x00" value="Enabled" />
             <entry key="0x01" value="Disabled" />
         </low_health_alarm>
-                <movement_states>
+        <movement_states>
             <entry key="0x00" value="Walk" />
             <entry key="0x01" value="Bike" />
             <entry key="0x02" value="Surf" />
