@@ -1013,9 +1013,9 @@
                     <class name="0" type="party_pokemon" var:address="0xD823" var:nicknameAddress="0xD94F"/>
                     <class name="1" type="party_pokemon" var:address="0xD84F" var:nicknameAddress="0xD955"/>
                     <class name="2" type="party_pokemon" var:address="0xD87B" var:nicknameAddress="0xD95B"/>
-                    <class name="3" type="party_pokemon" var:address="0xD9A7" var:nicknameAddress="0xD961"/>
-                    <class name="4" type="party_pokemon" var:address="0xD9D3" var:nicknameAddress="0xD967"/>
-                    <class name="5" type="party_pokemon" var:address="0xD9FF" var:nicknameAddress="0xD96D"/>
+                    <class name="3" type="party_pokemon" var:address="0xD8A7" var:nicknameAddress="0xD961"/>
+                    <class name="4" type="party_pokemon" var:address="0xD8D3" var:nicknameAddress="0xD967"/>
+                    <class name="5" type="party_pokemon" var:address="0xD8FF" var:nicknameAddress="0xD96D"/>
                 </team>
             </opponent>
             <other>
